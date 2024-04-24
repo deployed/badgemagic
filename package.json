@@ -8,20 +8,16 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "eslint .",
-    "format": "prettier --check ."
+    "format": "prettier --check .",
+    "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "src/**/*.{ts,tsx,js,jsx}": [
       "eslint --ext .tsx --ext .ts src/ --fix"
     ],
     "./src/**": [
       "prettier --write ."
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "base64-js": "^1.5.1",
@@ -55,7 +51,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "typescript": "*"
+    "typescript": "5.3"
   },
   "private": true
 }
