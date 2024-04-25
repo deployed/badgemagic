@@ -1,10 +1,7 @@
-import { ByteArrayUtils } from './ByteArrayUtils';
 import Base64 from 'base64-js';
-import {
-  ALLOWED_CHARACTERS,
-  LETTERS_HEX_BITMAPS,
-  type SupportedLetter,
-} from './constants';
+
+import {ByteArrayUtils} from './ByteArrayUtils';
+import {ALLOWED_CHARACTERS, LETTERS_HEX_BITMAPS, type SupportedLetter} from './constants';
 
 const HEADER = '77616E670000';
 const FLASH = '00';
@@ -61,16 +58,7 @@ function buildDataHexString(letters: string): string {
   const timestamp = getTimestamp();
 
   return (
-    HEADER +
-    FLASH +
-    MARQUEE +
-    MODES +
-    size +
-    PADDING1 +
-    timestamp +
-    PADDING2 +
-    SEPARATOR +
-    payload
+    HEADER + FLASH + MARQUEE + MODES + size + PADDING1 + timestamp + PADDING2 + SEPARATOR + payload
   );
 }
 

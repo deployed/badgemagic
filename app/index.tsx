@@ -1,17 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {useCallback, useEffect, useState} from 'react';
+import {ActivityIndicator, StyleSheet, Text, TextInput, View} from 'react-native';
+
 import * as Ble from 'dpld-ble';
-import { useCallback, useEffect, useState } from 'react';
-import { getPackets } from '@/utils/payload';
-import { sendPackets } from '@/utils/bluetooth';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native-paper';
+import {StatusBar} from 'expo-status-bar';
+import {Button} from 'react-native-paper';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+
+import {sendPackets} from '@/utils/bluetooth';
+import {getPackets} from '@/utils/payload';
 
 interface BadgeMagic {
   name?: string;
@@ -24,9 +20,7 @@ export default function Home(): JSX.Element {
   const [text, setText] = useState('');
   const [scanning, setScanning] = useState(false);
 
-  const [discoveredBadges, setDiscoveredBadges] = useState<
-    Record<string, BadgeMagic>
-  >({});
+  const [discoveredBadges, setDiscoveredBadges] = useState<Record<string, BadgeMagic>>({});
   const [connectedBadge, setConnectedBadge] = useState<BadgeMagic>();
 
   const scanForBadges = useCallback(() => {

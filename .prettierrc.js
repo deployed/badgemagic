@@ -4,12 +4,7 @@ module.exports = {
   singleQuote: true,
   printWidth: 100,
   trailingComma: 'all',
-  importOrder: [
-    '^(react|react-native)$',
-    '<THIRD_PARTY_MODULES>',
-    '^@/(.*)$',
-    '^[./]',
-  ],
+  importOrder: ['^(react|react-native)$', '<THIRD_PARTY_MODULES>', '^@/(.*)$', '^[./]'],
   importOrderSeparation: true,
   plugins: ['@trivago/prettier-plugin-sort-imports'],
 };

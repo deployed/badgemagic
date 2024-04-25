@@ -1,6 +1,7 @@
-import { Stack } from 'expo-router';
-import { Provider as PaperProvider, useTheme } from 'react-native-paper';
-import { theme } from '@/theme';
+import {Stack} from 'expo-router';
+import {Provider as PaperProvider, useTheme} from 'react-native-paper';
+
+import {theme} from '@/theme';
 
 export default function Layout(): JSX.Element {
   return (
@@ -11,7 +12,7 @@ export default function Layout(): JSX.Element {
 }
 
 const AppStack = (): JSX.Element => {
-  const { colors } = useTheme();
+  const {colors} = useTheme();
 
   return (
     <Stack
@@ -23,8 +24,7 @@ const AppStack = (): JSX.Element => {
         headerTitleStyle: {
           fontWeight: 'bold',
         },
-      }}
-    >
+      }}>
       <Stack.Screen name="index" options={{}} />
     </Stack>
   );
