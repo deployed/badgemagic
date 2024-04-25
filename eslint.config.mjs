@@ -18,7 +18,7 @@ export default [
   { languageOptions: { globals: globals.node } },
   ...compat.extends('standard-with-typescript'),
   pluginReactConfig,
-  { ignores: ['*.config.*', '.yarn', '.prettierrc.js'] },
+  { ignores: ['*.config.*', '.yarn', '.prettierrc.js', '.expo'] },
   eslintPluginPrettierRecommended,
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -26,6 +26,7 @@ export default [
       semi: 'off',
       '@typescript-eslint/semi': 'off',
       'react/react-in-jsx-scope': 'off',
+      '@typescript-eslint/strict-boolean-expressions': 'off',
     },
   },
 ];

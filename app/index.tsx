@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar';
 import {
   ActivityIndicator,
   Button,
@@ -6,28 +6,23 @@ import {
   Text,
   TextInput,
   View,
-} from "react-native";
-import * as Ble from "dpld-ble";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { getPackets } from "@/utils/payload";
-import { sendPackets } from "@/utils/bluetooth";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+} from 'react-native';
+import * as Ble from 'dpld-ble';
+import { useCallback, useEffect, useState } from 'react';
+import { getPackets } from '@/utils/payload';
+import { sendPackets } from '@/utils/bluetooth';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-type BadgeMagic = {
+interface BadgeMagic {
   name?: string;
   id: string;
-};
+}
 
-const BADGE_MAGIC_ADVERTISING_NAME = "LSLED";
+const BADGE_MAGIC_ADVERTISING_NAME = 'LSLED';
 
-export default function App() {
-  const [text, setText] = useState("");
+export default function App(): JSX.Element {
+  const [text, setText] = useState('');
   const [scanning, setScanning] = useState(false);
-
-
-  
-
-  const [error, setError] = useState<string>();
 
   const [discoveredBadges, setDiscoveredBadges] = useState<
     Record<string, BadgeMagic>
@@ -46,7 +41,7 @@ export default function App() {
 
   useEffect(() => {
     const discoverySub = Ble.addPeripheralDiscoveredListener((peripheral) => {
-      console.log("Discovered badge", peripheral);
+      console.log('Discovered badge', peripheral);
 
       if (peripheral.name !== BADGE_MAGIC_ADVERTISING_NAME) {
         return;
@@ -68,7 +63,7 @@ export default function App() {
     });
 
     const connectionSub = Ble.addPeripheralConnectedListener((peripheral) => {
-      console.log("Connected to badge", peripheral);
+      console.log('Connected to badge', peripheral);
       setConnectedBadge(peripheral);
     });
 
@@ -82,13 +77,13 @@ export default function App() {
 
   useEffect(() => {
     const discoveredBadgesList = Object.values(discoveredBadges);
-    if (connectedBadge !== undefined && discoveredBadgesList.length > 0) {
-      const badge = discoveredBadgesList[0];
+    const badge = discoveredBadgesList[0];
+    if (badge) {
       Ble.connect(badge.id);
     }
   }, [discoveredBadges, connectedBadge]);
 
-  const handleSendToBadge = async () => {
+  const handleSendToBadge = async (): Promise<void> => {
     if (!connectedBadge) {
       return;
     }
@@ -115,6 +110,7 @@ export default function App() {
             <Button
               title="Send to badge"
               disabled={scanning}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onPress={handleSendToBadge}
             />
           ) : (
@@ -144,17 +140,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   inputContainer: {
     flex: 4,
     rowGap: 8,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   divider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: "#d3d3d3",
+    backgroundColor: '#d3d3d3',
   },
   input: {
     width: 300,
@@ -165,7 +161,7 @@ const styles = StyleSheet.create({
   },
   scanContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

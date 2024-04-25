@@ -1,6 +1,9 @@
 import * as Ble from 'dpld-ble';
 
-export async function sendPackets(deviceId: string, packets: string[]) {
+export async function sendPackets(
+  deviceId: string,
+  packets: string[],
+): Promise<void> {
   const [characteristic, service] = await getCharacteristic(deviceId);
 
   for await (const packet of packets) {
@@ -15,7 +18,9 @@ export async function sendPackets(deviceId: string, packets: string[]) {
   Ble.disconnect(deviceId);
 }
 
-async function getCharacteristic(deviceId: string) {
+async function getCharacteristic(
+  deviceId: string,
+): Promise<readonly [Ble.BluetoothCharacteristic, Ble.BluetoothService]> {
   const services = await Ble.discoverServices(deviceId);
   const service = services.find((service) => service.uuid === 'FEE0');
 

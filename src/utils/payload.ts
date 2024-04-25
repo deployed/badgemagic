@@ -25,8 +25,6 @@ const SEPARATOR = '00000000000000000000000000000000';
 // export const PAYLOAD = "00386CC6C6FEC6C6C6C600";
 export const PAYLOAD = '007CC6C6C0C0C0C6C67C00';
 
-const PADDING3 = '0000000000';
-
 const PAYLOAD_SIZE_IN_BYTES = 16;
 
 const BYTES_IN_ONE_HEX = 2;
@@ -81,7 +79,7 @@ function getLetterBitmaps(letters: string): string[] {
   for (let i = 0; i < letters.length; i++) {
     const letter = letters[i];
 
-    if (isSupportedLetter(letter)) {
+    if (letter && isSupportedLetter(letter)) {
       const bitmap = LETTERS_HEX_BITMAPS[letter];
       hexBitmaps.push(bitmap);
     }
@@ -118,7 +116,7 @@ function getTimestamp(): string {
 }
 
 function splitHexStringIntoChunks(hexString: string): string[] {
-  const chunks = hexString.match(/.{1,32}/g) || [];
+  const chunks = hexString.match(/.{1,32}/g) ?? [];
 
   return chunks.map((chunk) => chunk.padStart(HEX_CHARACTERS_PER_CHUNK, '0'));
 }
