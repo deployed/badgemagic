@@ -1,5 +1,5 @@
 export class ByteArrayUtils {
-  static hexStringToByteArray(hexString: string) {
+  static hexStringToByteArray(hexString: string): Uint8Array {
     const length = hexString.length;
     const data = new Uint8Array(length / 2);
 
@@ -11,19 +11,19 @@ export class ByteArrayUtils {
     return data;
   }
 
-  static getCharacterDigit(hexChar: string, radix: number) {
+  static getCharacterDigit(hexChar: string, radix: number): number {
     return parseInt(hexChar, radix);
   }
 
-  static byteArrayToHexString(byteArray: Uint8Array) {
-    let result = "";
+  static byteArrayToHexString(byteArray: Uint8Array): string {
+    let result = '';
     for (const b of byteArray) {
       result += ByteArrayUtils.formatStringToHex(b);
     }
     return result;
   }
 
-  static formatStringToHex(byte: number) {
-    return ("0" + (byte & 0xff).toString(16)).slice(-2);
+  static formatStringToHex(byte: number): string {
+    return ('0' + (byte & 0xff).toString(16)).slice(-2);
   }
 }

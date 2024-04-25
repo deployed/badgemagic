@@ -7,21 +7,20 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "eslint .",
-    "format": "prettier --check .",
+    "lint": "eslint . --fix",
+    "format": "prettier --write .",
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx}": [
-      "eslint --ext .tsx --ext .ts src/ --fix"
-    ],
-    "./src/**": [
-      "prettier --write ."
+    "{src,app}/**/*.{ts,tsx,js,jsx}": [
+      "yarn format",
+      "yarn lint"
     ]
   },
   "dependencies": {
     "base64-js": "^1.5.1",
-    "dpld-ble": "./libs/dpld-ble-0.1.0.tgz",
+    "dpld-ble": "./libs/dpld-ble-0.1.1.tgz",
+    "eslint-config-prettier": "^9.1.0",
     "expo": "~50.0.14",
     "expo-constants": "~15.4.6",
     "expo-dev-client": "~3.3.11",

@@ -4041,8 +4041,9 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
     "@typescript-eslint/parser": "npm:^7.7.1"
     base64-js: "npm:^1.5.1"
-    dpld-ble: ./libs/dpld-ble-0.1.0.tgz
+    dpld-ble: ./libs/dpld-ble-0.1.1.tgz
     eslint: "npm:^8.0.1"
+    eslint-config-prettier: "npm:^9.1.0"
     eslint-config-standard-with-typescript: "npm:^43.0.1"
     eslint-plugin-import: "npm:^2.25.2"
     eslint-plugin-n: "npm:^15.0.0 || ^16.0.0 "
@@ -5105,16 +5106,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dpld-ble@file:./libs/dpld-ble-0.1.0.tgz::locator=badgemagic%40workspace%3A.":
-  version: 0.1.0
-  resolution: "dpld-ble@file:./libs/dpld-ble-0.1.0.tgz#./libs/dpld-ble-0.1.0.tgz::hash=e63ea9&locator=badgemagic%40workspace%3A."
+"dpld-ble@file:./libs/dpld-ble-0.1.1.tgz::locator=badgemagic%40workspace%3A.":
+  version: 0.1.1
+  resolution: "dpld-ble@file:./libs/dpld-ble-0.1.1.tgz#./libs/dpld-ble-0.1.1.tgz::hash=db2145&locator=badgemagic%40workspace%3A."
   dependencies:
     "@expo/config-plugins": "npm:^7.8.4"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: e10fe48f7fb52dae535e630dd0a2e12064b8dae20f3c5a2225169f7bfdf14b452207bd99d42fd08eb1c10e07fd367dafc16e0d765f9b8faa5781778c316f3607
+  checksum: 481baec0b12585f2f71b2f25dbe386f05307c4d6fc030507d5475974562b3e2b3def7295660da0be3153a07826cb96346063094b3c1bc33c3674020e4f1ee276
   languageName: node
   linkType: hard
 
@@ -5425,6 +5426,17 @@ __metadata:
   peerDependencies:
     eslint: ">=6.0.0"
   checksum: aea9ff05df3f4d5db95361c13cb89baf3669fe34ad73e5771843dbb5cafdc7a9636c6f93814a29d0e0b87f147846ddef6672b71e28c4e73f889b5ea8d1d454d2
+  languageName: node
+  linkType: hard
+
+"eslint-config-prettier@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "eslint-config-prettier@npm:9.1.0"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: 6d332694b36bc9ac6fdb18d3ca2f6ac42afa2ad61f0493e89226950a7091e38981b66bac2b47ba39d15b73fff2cd32c78b850a9cf9eed9ca9a96bfb2f3a2f10d
   languageName: node
   linkType: hard
 

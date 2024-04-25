@@ -23,7 +23,12 @@ const BADGE_MAGIC_ADVERTISING_NAME = "LSLED";
 export default function App() {
   const [text, setText] = useState("");
   const [scanning, setScanning] = useState(false);
+
+
+  
+
   const [error, setError] = useState<string>();
+
   const [discoveredBadges, setDiscoveredBadges] = useState<
     Record<string, BadgeMagic>
   >({});
@@ -77,7 +82,7 @@ export default function App() {
 
   useEffect(() => {
     const discoveredBadgesList = Object.values(discoveredBadges);
-    if (!connectedBadge && discoveredBadgesList.length > 0) {
+    if (connectedBadge !== undefined && discoveredBadgesList.length > 0) {
       const badge = discoveredBadgesList[0];
       Ble.connect(badge.id);
     }
