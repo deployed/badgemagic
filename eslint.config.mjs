@@ -27,6 +27,12 @@ export default [
       '@typescript-eslint/semi': 'off',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'off',
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        {
+          checksVoidReturn: false,
+        },
+      ],
     },
   },
 ];

@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import {
   ActivityIndicator,
-  Button,
   StyleSheet,
   Text,
   TextInput,
@@ -12,6 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getPackets } from '@/utils/payload';
 import { sendPackets } from '@/utils/bluetooth';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Button } from 'react-native-paper';
 
 interface BadgeMagic {
   name?: string;
@@ -20,7 +20,7 @@ interface BadgeMagic {
 
 const BADGE_MAGIC_ADVERTISING_NAME = 'LSLED';
 
-export default function App(): JSX.Element {
+export default function Home(): JSX.Element {
   const [text, setText] = useState('');
   const [scanning, setScanning] = useState(false);
 
@@ -107,12 +107,9 @@ export default function App(): JSX.Element {
           <Text>Enter text:</Text>
           <TextInput value={text} style={styles.input} onChangeText={setText} />
           {connectedBadge ? (
-            <Button
-              title="Send to badge"
-              disabled={scanning}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onPress={handleSendToBadge}
-            />
+            <Button disabled={scanning} onPress={handleSendToBadge}>
+              Send to badge
+            </Button>
           ) : (
             <Text>No badge connected...</Text>
           )}
@@ -125,11 +122,9 @@ export default function App(): JSX.Element {
               <Text>Scanning...</Text>
             </View>
           ) : (
-            <Button
-              title="Scan for badges"
-              disabled={scanning}
-              onPress={scanForBadges}
-            />
+            <Button disabled={scanning} onPress={scanForBadges}>
+              Scan for badges
+            </Button>
           )}
         </View>
       </SafeAreaView>
@@ -140,7 +135,6 @@ export default function App(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   inputContainer: {
     flex: 4,
@@ -150,7 +144,6 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: '#d3d3d3',
   },
   input: {
     width: 300,
