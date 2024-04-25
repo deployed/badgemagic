@@ -1,31 +1,31 @@
 import { Stack } from 'expo-router';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'pink',
-    accent: 'yellow',
-  },
-};
+import { Provider as PaperProvider, useTheme } from 'react-native-paper';
+import { theme } from '@/theme';
 
 export default function Layout(): JSX.Element {
   return (
     <PaperProvider theme={theme}>
-      <Stack
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Stack.Screen name="index" options={{}} />
-      </Stack>
+      <AppStack />
     </PaperProvider>
   );
 }
+
+const AppStack = (): JSX.Element => {
+  const { colors } = useTheme();
+
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.primary,
+        },
+        headerTintColor: colors.onPrimary,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    >
+      <Stack.Screen name="index" options={{}} />
+    </Stack>
+  );
+};
