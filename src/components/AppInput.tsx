@@ -1,32 +1,37 @@
 import {StyleSheet} from 'react-native';
 
+import {type FieldValues, useController, type UseControllerProps} from 'react-hook-form';
 import {TextInput} from 'react-native-paper';
 
-interface AppInputType {
-  placeholder: string;
-  text: string;
-  setText: (text: string) => void;
-}
+import {Colors} from '@/utils/colors';
 
-export const AppInput = ({placeholder, text, setText}: AppInputType): JSX.Element => {
+export type TextAreaProps<T extends FieldValues> = {placeholder: string} & UseControllerProps<T>;
+
+export const AppInput = <T extends FieldValues>({
+  control,
+  name,
+  placeholder,
+}: TextAreaProps<T>): JSX.Element => {
+  const {
+    field: {onChange, value},
+  } = useController({name, control});
+
   return (
     <TextInput
       placeholder={placeholder}
       mode="outlined"
       outlineColor="transparent"
-      style={styles.container}
-      value={text}
-      onChangeText={(text) => {
-        setText(text);
-      }}
+      style={styles.input}
+      value={value}
+      onChangeText={onChange}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  input: {
     width: '100%',
-    backgroundColor: '#f3f3f3',
-    padding: 10,
+    backgroundColor: Colors.white,
+    padding: 8,
   },
 });

@@ -1,56 +1,99 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-import * as Ble from 'dpld-ble';
 import {StatusBar} from 'expo-status-bar';
+import {useForm, FormProvider} from 'react-hook-form';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import {BadgeConnectionStatus} from '@/components/BadgeConnectionStatus';
+import {AppButton} from '@/components/AppButton';
+import {BadgeForm} from '@/components/BadgeForm';
 import {BadgeScanning} from '@/components/BadgeScanning';
 import {type BadgeMagic} from '@/models/BadgeMagic.model';
 
-export default function Home(): JSX.Element {
+// import {sendPackets} from '@/utils/bluetooth';
+// import {getPackets} from '@/utils/payload';
+
+interface FormData {
+  text: string;
+  effects: {
+    flash: boolean;
+    marquee: boolean;
+    invertLed: boolean;
+  };
+}
+
+const DefaultFormData: FormData = {
+  text: '',
+  effects: {
+    flash: false,
+    marquee: false,
+    invertLed: false,
+  },
+};
+
+const Home = (): JSX.Element => {
   const [scanning, setScanning] = useState(false);
-  const [discoveredBadges, setDiscoveredBadges] = useState<Record<string, BadgeMagic>>({});
   const [connectedBadge, setConnectedBadge] = useState<BadgeMagic>();
+  const methods = useForm<FormData>({defaultValues: DefaultFormData});
+  const onSubmit = (data: FormData): void => {
+    console.log(data);
+  };
 
-  useEffect(() => {
-    if (connectedBadge) return;
+  // const handleSendToBadge = async (): Promise<void> => {
+  //   if (!connectedBadge) {
+  //     return;
+  //   }
 
-    const discoveredBadgesList = Object.values(discoveredBadges);
-    const badge = discoveredBadgesList[0];
+  //   const packets = getPackets('xxx');
 
-    if (badge) {
-      Ble.connect(badge.id);
-    }
-  }, [discoveredBadges, connectedBadge]);
+  //   try {
+  //     await sendPackets(connectedBadge.id, packets);
+  //   } catch (e) {
+  //     console.error(e);
+  //   } finally {
+  //     setConnectedBadge(undefined);
+  //   }
+  // };
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <StatusBar style="auto" />
-        <BadgeConnectionStatus
-          connectedBadge={connectedBadge}
-          scanning={scanning}
-          setConnectedBadge={setConnectedBadge}
-        />
-        <View style={styles.divider} />
-        <BadgeScanning
-          setScanning={setScanning}
-          scanning={scanning}
-          setDiscoveredBadges={setDiscoveredBadges}
-          setConnectedBadge={setConnectedBadge}
-        />
+        <FormProvider {...methods}>
+          <BadgeForm />
+          <View style={styles.buttonsContainer}>
+            <AppButton
+              // disabled={scanning || !connectedBadge}
+              onPress={methods.handleSubmit(onSubmit)}
+              title={'Send to badge'}
+            />
+            <BadgeScanning
+              setScanning={setScanning}
+              connectedBadge={connectedBadge}
+              scanning={scanning}
+              setConnectedBadge={setConnectedBadge}
+            />
+          </View>
+        </FormProvider>
       </SafeAreaView>
     </SafeAreaProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 16,
   },
-  divider: {
-    height: StyleSheet.hairlineWidth,
+  buttonsContainer: {
+    position: 'absolute',
+    bottom: 40,
+    gap: 8,
+    left: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
 });
+
+export default Home;

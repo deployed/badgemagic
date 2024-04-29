@@ -1,26 +1,29 @@
-import {type SetStateAction, useCallback, useEffect} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {useCallback, useEffect, useState} from 'react';
+import {ActivityIndicator, Text, View} from 'react-native';
 
 import * as Ble from 'dpld-ble';
-import {Button} from 'react-native-paper';
 
 import {type BadgeMagic} from '@/models/BadgeMagic.model';
+
+import {AppButton} from './AppButton';
 
 const BADGE_MAGIC_ADVERTISING_NAME = 'LSLED';
 
 interface BadgeScanning {
   setScanning: (scanning: boolean) => void;
   scanning: boolean;
-  setDiscoveredBadges: (arg: SetStateAction<Record<string, BadgeMagic>>) => void;
+  connectedBadge: BadgeMagic | undefined;
   setConnectedBadge: (connectedBadge: BadgeMagic) => void;
 }
 
 export const BadgeScanning = ({
   setScanning,
   scanning,
-  setDiscoveredBadges,
+  connectedBadge,
   setConnectedBadge,
 }: BadgeScanning): JSX.Element => {
+  const [discoveredBadges, setDiscoveredBadges] = useState<Record<string, BadgeMagic>>({});
+
   const scanForBadges = useCallback(() => {
     setDiscoveredBadges({});
     Ble.startScan();
@@ -30,6 +33,17 @@ export const BadgeScanning = ({
       setScanning(false);
     }, 3000);
   }, [setScanning]);
+
+  useEffect(() => {
+    if (connectedBadge) return;
+
+    const discoveredBadgesList = Object.values(discoveredBadges);
+    const badge = discoveredBadgesList[0];
+
+    if (badge) {
+      Ble.connect(badge.id);
+    }
+  }, [discoveredBadges, connectedBadge]);
 
   useEffect(() => {
     const discoverySub = Ble.addPeripheralDiscoveredListener((peripheral) => {
@@ -68,25 +82,15 @@ export const BadgeScanning = ({
   }, [scanForBadges]);
 
   return (
-    <View style={styles.scanContainer}>
+    <View>
       {scanning ? (
         <View>
           <ActivityIndicator size="large" />
           <Text>Scanning...</Text>
         </View>
       ) : (
-        <Button disabled={scanning} onPress={scanForBadges}>
-          Scan for badges
-        </Button>
+        <AppButton disabled={scanning} onPress={scanForBadges} title={'Scan for badge'} />
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  scanContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
