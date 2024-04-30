@@ -4,7 +4,7 @@ import {useFormContext} from 'react-hook-form';
 
 import {effects} from '@/utils/effects';
 
-import {ControlledCard} from './AppCard';
+import {ControlledCard} from './CardControlled';
 
 export const Effects = (): JSX.Element => {
   const {control} = useFormContext<FormData>();

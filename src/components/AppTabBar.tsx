@@ -11,8 +11,8 @@ export const renderTabBar = (
   return (
     <TabBar
       {...props}
-      indicatorStyle={{backgroundColor: 'red'}}
-      style={{backgroundColor: 'transparent'}}
+      indicatorStyle={{backgroundColor: colors.primary}}
+      style={{backgroundColor: 'transparent', shadowOpacity: 0}}
       renderLabel={({route, focused}) => (
         <Text style={{color: focused ? colors.secondary : colors.onSecondary, margin: 8}}>
           {route.title}
