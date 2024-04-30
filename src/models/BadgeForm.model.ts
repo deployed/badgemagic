@@ -1,4 +1,4 @@
-export interface FormData {
+export interface BadgeConfigFormData {
   text: string;
   effects: {
     flash: boolean;

@@ -4,7 +4,7 @@ import {useFormContext} from 'react-hook-form';
 
 import {effects} from '@/utils/effects';
 
-import {AppCard} from './AppCard';
+import {ControlledCard} from './AppCard';
 
 export const Effects = (): JSX.Element => {
   const {control} = useFormContext<FormData>();
@@ -13,7 +13,7 @@ export const Effects = (): JSX.Element => {
     <View style={styles.cardsContainer}>
       {effects.map((effect) => (
         <View key={effect.name}>
-          <AppCard
+          <ControlledCard
             imagePath={effect.imagePath}
             control={control}
             placeholder={effect.placeholder}
@@ -27,7 +27,7 @@ export const Effects = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   cardsContainer: {
-    paddingTop: 32,
+    paddingTop: 16,
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-around',

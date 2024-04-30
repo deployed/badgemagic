@@ -1,27 +1,33 @@
 import {StyleSheet} from 'react-native';
 
-import {type FieldValues, useController, type UseControllerProps} from 'react-hook-form';
-import {TextInput} from 'react-native-paper';
+import {type FieldValues, useController, type Path, type Control} from 'react-hook-form';
+import {TextInput, useTheme, type TextInputProps} from 'react-native-paper';
 
-import {Colors} from '@/utils/colors';
-
-export type TextAreaProps<T extends FieldValues> = {placeholder: string} & UseControllerProps<T>;
+export type AppInputProps<T extends FieldValues> = {
+  placeholder: string;
+  name: Path<T>;
+  control: Control<T>;
+} & Omit<TextInputProps, 'value' | 'onTextChange' | 'mode' | 'outlineColor'>;
 
 export const AppInput = <T extends FieldValues>({
   control,
   name,
   placeholder,
-}: TextAreaProps<T>): JSX.Element => {
+  ...props
+}: AppInputProps<T>): JSX.Element => {
+  const {colors} = useTheme();
+
   const {
     field: {onChange, value},
   } = useController({name, control});
 
   return (
     <TextInput
+      {...props}
       placeholder={placeholder}
       mode="outlined"
       outlineColor="transparent"
-      style={styles.input}
+      style={[{backgroundColor: colors.onPrimary}, styles.input, props.style]}
       value={value}
       onChangeText={onChange}
     />
@@ -31,7 +37,6 @@ export const AppInput = <T extends FieldValues>({
 const styles = StyleSheet.create({
   input: {
     width: '100%',
-    backgroundColor: Colors.white,
     padding: 8,
   },
 });

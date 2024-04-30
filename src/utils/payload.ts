@@ -1,6 +1,6 @@
 import Base64 from 'base64-js';
 
-import {type FormData} from '@/models/BadgeForm.model';
+import {type BadgeConfigFormData} from '@/models/BadgeForm.model';
 
 import {ByteArrayUtils} from './ByteArrayUtils';
 import {ALLOWED_CHARACTERS, LETTERS_HEX_BITMAPS, type SupportedLetter} from './constants';
@@ -43,7 +43,7 @@ const MAX_BITMAPS_NUMBER = 8;
 //   PAYLOAD +
 //   PADDING3;
 
-export function getPackets(data: FormData): string[] {
+export function getPackets(data: BadgeConfigFormData): string[] {
   const hexString = buildDataHexString(data);
   const chunks = splitHexStringIntoChunks(hexString);
 
@@ -52,7 +52,7 @@ export function getPackets(data: FormData): string[] {
     .map((bytes) => Base64.fromByteArray(bytes));
 }
 
-function buildDataHexString(data: FormData): string {
+function buildDataHexString(data: BadgeConfigFormData): string {
   const {text, effects} = data;
   const payload = getLetterBitmaps(text).join('');
   const size = getSize(text);

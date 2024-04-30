@@ -1,15 +1,13 @@
-import {Button} from 'react-native-paper';
+import {Button, type ButtonProps} from 'react-native-paper';
 
-interface AppButton {
-  title: string;
-  disabled: boolean;
+interface AppButtonProps extends ButtonProps {
   onPress: () => Promise<void> | void;
 }
 
-export const AppButton = ({disabled, onPress, title}: AppButton): JSX.Element => {
+export const AppButton = (props: AppButtonProps): JSX.Element => {
   return (
-    <Button mode="contained" disabled={disabled} onPress={onPress}>
-      {title}
+    <Button mode="contained" {...props}>
+      {props.children}
     </Button>
   );
 };

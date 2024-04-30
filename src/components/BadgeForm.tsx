@@ -2,22 +2,17 @@ import {useState} from 'react';
 import {StyleSheet, View, useWindowDimensions, Text} from 'react-native';
 
 import {useFormContext} from 'react-hook-form';
-import {
-  TabView,
-  SceneMap,
-  TabBar,
-  type SceneRendererProps,
-  type NavigationState,
-} from 'react-native-tab-view';
+import {SceneMap, TabView} from 'react-native-tab-view';
 
 import {AppInput} from '@/components/AppInput';
 
-import {type FormData} from '../models/BadgeForm.model';
+import {type BadgeConfigFormData} from '../models/BadgeForm.model';
+import {renderTabBar} from './AppTabBar';
 import {Effects} from './Effects';
 
 const Animations = (): JSX.Element => <Text>Nothing implemented 00</Text>;
 
-const Speed = (): JSX.Element => <Text>Nothing implemented 00</Text>;
+const Speed = (): JSX.Element => <Text>Nothing implemented 01</Text>;
 
 const renderScene = SceneMap({
   effects: Effects,
@@ -25,28 +20,7 @@ const renderScene = SceneMap({
   speed: Speed,
 });
 
-const renderTabBar = (
-  props: SceneRendererProps & {
-    navigationState: NavigationState<{
-      key: string;
-      title: string;
-    }>;
-  },
-): JSX.Element => (
-  <TabBar
-    {...props}
-    indicatorStyle={{backgroundColor: 'red'}}
-    style={{backgroundColor: 'white'}}
-    renderLabel={({route, focused}) => (
-      <Text style={{color: focused ? 'black' : 'gray', margin: 8}}>{route.title}</Text>
-    )}
-  />
-);
-
 export const BadgeForm = (): JSX.Element => {
-  const {control} = useFormContext<FormData>();
-  const layout = useWindowDimensions();
-
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'effects', title: 'Effects'},
@@ -54,11 +28,12 @@ export const BadgeForm = (): JSX.Element => {
     {key: 'speed', title: 'Speed'},
   ]);
 
+  const {control} = useFormContext<BadgeConfigFormData>();
+  const layout = useWindowDimensions();
+
   return (
     <View style={styles.inputContainer}>
-      <View style={styles.spacer} />
       <AppInput control={control} placeholder={'Enter text'} name={'text'} />
-      <View style={styles.spacer} />
       <TabView
         renderTabBar={renderTabBar}
         navigationState={{index, routes}}
@@ -72,10 +47,9 @@ export const BadgeForm = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   inputContainer: {
+    paddingTop: 20,
     flex: 1,
-  },
-  spacer: {
-    padding: 20,
+    gap: 20,
   },
   cardsContainer: {
     flexDirection: 'row',

@@ -1,21 +1,22 @@
-import {type ImageSourcePropType, Text, Image, TouchableOpacity} from 'react-native';
+import {type ImageSourcePropType, Text} from 'react-native';
 import {StyleSheet} from 'react-native';
 
 import {type FieldValues, type UseControllerProps, useController} from 'react-hook-form';
+import {useTheme, Card} from 'react-native-paper';
 
-import {Colors} from '../utils/colors';
-
-type AppCardProps<T extends FieldValues> = {
+type ControlledCardProps<T extends FieldValues> = {
   imagePath: ImageSourcePropType;
   placeholder: string;
 } & UseControllerProps<T>;
 
-export const AppCard = <T extends FieldValues>({
+export const ControlledCard = <T extends FieldValues>({
   control,
   name,
   placeholder,
   imagePath,
-}: AppCardProps<T>): JSX.Element => {
+}: ControlledCardProps<T>): JSX.Element => {
+  const {colors} = useTheme();
+
   const {
     field: {value, onChange},
   } = useController({name, control});
@@ -25,30 +26,28 @@ export const AppCard = <T extends FieldValues>({
   };
 
   return (
-    <TouchableOpacity
+    <Card
       onPress={handleOnPress}
-      style={[{backgroundColor: value ? Colors.red : Colors.white}, styles.card]}>
-      <Image source={imagePath} style={styles.image} />
-      <Text>{placeholder}</Text>
-    </TouchableOpacity>
+      style={[{backgroundColor: value ? colors.primary : colors.onPrimary}, styles.card]}>
+      <Card.Cover source={imagePath} style={styles.image} />
+      <Card.Content>
+        <Text>{placeholder}</Text>
+      </Card.Content>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    width: 90,
-    height: 90,
+    width: 110,
+    height: 110,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
   },
   image: {
     backgroundColor: 'transparent',
+    alignSelf: 'center',
     width: 60,
     height: 60,
   },

@@ -8,12 +8,12 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {AppButton} from '@/components/AppButton';
 import {BadgeForm} from '@/components/BadgeForm';
 import {BadgeScanning} from '@/components/BadgeScanning';
-import {type FormData} from '@/models/BadgeForm.model';
+import {type BadgeConfigFormData} from '@/models/BadgeForm.model';
 import {type BadgeMagic} from '@/models/BadgeMagic.model';
 import {sendPackets} from '@/utils/bluetooth';
 import {getPackets} from '@/utils/payload';
 
-const DefaultFormData: FormData = {
+const DefaultFormData: BadgeConfigFormData = {
   text: '',
   effects: {
     flash: false,
@@ -25,9 +25,10 @@ const DefaultFormData: FormData = {
 const Home = (): JSX.Element => {
   const [scanning, setScanning] = useState(false);
   const [connectedBadge, setConnectedBadge] = useState<BadgeMagic>();
-  const methods = useForm<FormData>({defaultValues: DefaultFormData});
 
-  const handleSendToBadge = async (data: FormData): Promise<void> => {
+  const methods = useForm<BadgeConfigFormData>({defaultValues: DefaultFormData});
+
+  const handleSendToBadge = async (data: BadgeConfigFormData): Promise<void> => {
     if (!connectedBadge) {
       return;
     }
@@ -52,9 +53,9 @@ const Home = (): JSX.Element => {
           <View style={styles.buttonsContainer}>
             <AppButton
               disabled={scanning || !connectedBadge}
-              onPress={methods.handleSubmit(handleSendToBadge)}
-              title={'Send to badge'}
-            />
+              onPress={methods.handleSubmit(handleSendToBadge)}>
+              Send to badge
+            </AppButton>
             <BadgeScanning
               setScanning={setScanning}
               connectedBadge={connectedBadge}

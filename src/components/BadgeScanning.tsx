@@ -9,7 +9,7 @@ import {AppButton} from './AppButton';
 
 const BADGE_MAGIC_ADVERTISING_NAME = 'LSLED';
 
-interface BadgeScanning {
+interface BadgeScanningProps {
   setScanning: (scanning: boolean) => void;
   scanning: boolean;
   connectedBadge: BadgeMagic | undefined;
@@ -21,7 +21,7 @@ export const BadgeScanning = ({
   scanning,
   connectedBadge,
   setConnectedBadge,
-}: BadgeScanning): JSX.Element => {
+}: BadgeScanningProps): JSX.Element => {
   const [discoveredBadges, setDiscoveredBadges] = useState<Record<string, BadgeMagic>>({});
 
   const scanForBadges = useCallback(() => {
@@ -89,7 +89,9 @@ export const BadgeScanning = ({
           <Text>Scanning...</Text>
         </View>
       ) : (
-        <AppButton disabled={scanning} onPress={scanForBadges} title={'Scan for badge'} />
+        <AppButton disabled={scanning} onPress={scanForBadges}>
+          Scan for badge
+        </AppButton>
       )}
     </View>
   );
