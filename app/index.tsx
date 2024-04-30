@@ -8,19 +8,10 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {AppButton} from '@/components/AppButton';
 import {BadgeForm} from '@/components/BadgeForm';
 import {BadgeScanning} from '@/components/BadgeScanning';
+import {type FormData} from '@/models/BadgeForm.model';
 import {type BadgeMagic} from '@/models/BadgeMagic.model';
-
-// import {sendPackets} from '@/utils/bluetooth';
-// import {getPackets} from '@/utils/payload';
-
-interface FormData {
-  text: string;
-  effects: {
-    flash: boolean;
-    marquee: boolean;
-    invertLed: boolean;
-  };
-}
+import {sendPackets} from '@/utils/bluetooth';
+import {getPackets} from '@/utils/payload';
 
 const DefaultFormData: FormData = {
   text: '',
@@ -35,25 +26,22 @@ const Home = (): JSX.Element => {
   const [scanning, setScanning] = useState(false);
   const [connectedBadge, setConnectedBadge] = useState<BadgeMagic>();
   const methods = useForm<FormData>({defaultValues: DefaultFormData});
-  const onSubmit = (data: FormData): void => {
+
+  const handleSendToBadge = async (data: FormData): Promise<void> => {
+    if (!connectedBadge) {
+      return;
+    }
     console.log(data);
+    const packets = getPackets(data);
+
+    try {
+      await sendPackets(connectedBadge.id, packets);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setConnectedBadge(undefined);
+    }
   };
-
-  // const handleSendToBadge = async (): Promise<void> => {
-  //   if (!connectedBadge) {
-  //     return;
-  //   }
-
-  //   const packets = getPackets('xxx');
-
-  //   try {
-  //     await sendPackets(connectedBadge.id, packets);
-  //   } catch (e) {
-  //     console.error(e);
-  //   } finally {
-  //     setConnectedBadge(undefined);
-  //   }
-  // };
 
   return (
     <SafeAreaProvider>
@@ -63,8 +51,8 @@ const Home = (): JSX.Element => {
           <BadgeForm />
           <View style={styles.buttonsContainer}>
             <AppButton
-              // disabled={scanning || !connectedBadge}
-              onPress={methods.handleSubmit(onSubmit)}
+              disabled={scanning || !connectedBadge}
+              onPress={methods.handleSubmit(handleSendToBadge)}
               title={'Send to badge'}
             />
             <BadgeScanning
