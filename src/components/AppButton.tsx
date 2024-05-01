@@ -5,9 +5,5 @@ interface AppButtonProps extends ButtonProps {
 }
 
 export const AppButton = (props: AppButtonProps): JSX.Element => {
-  return (
-    <Button mode="contained" {...props}>
-      {props.children}
-    </Button>
-  );
+  return <Button mode="contained" {...props} />;
 };

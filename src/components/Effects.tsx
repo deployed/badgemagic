@@ -12,14 +12,13 @@ export const Effects = (): JSX.Element => {
   return (
     <View style={styles.cardsContainer}>
       {effects.map((effect) => (
-        <View key={effect.name}>
-          <ControlledCard
-            imagePath={effect.imagePath}
-            control={control}
-            placeholder={effect.placeholder}
-            name={effect.name}
-          />
-        </View>
+        <ControlledCard
+          key={effect.name}
+          imagePath={effect.imagePath}
+          control={control}
+          title={effect.placeholder}
+          name={effect.name}
+        />
       ))}
     </View>
   );

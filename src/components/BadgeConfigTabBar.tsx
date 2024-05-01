@@ -3,9 +3,11 @@ import {Text} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {TabBar, type SceneRendererProps, type NavigationState} from 'react-native-tab-view';
 
-export const renderTabBar = (
-  props: SceneRendererProps & {navigationState: NavigationState<{key: string; title: string}>},
-): JSX.Element => {
+type BadgeConfigTabBarProps = SceneRendererProps & {
+  navigationState: NavigationState<{key: string; title: string}>;
+};
+
+export const BadgeConfigTabBar = (props: BadgeConfigTabBarProps): JSX.Element => {
   const {colors} = useTheme();
 
   return (

@@ -57,19 +57,19 @@ function buildDataHexString(data: BadgeConfigFormData): string {
   const payload = getLetterBitmaps(text).join('');
   const size = getSize(text);
   const timestamp = getTimestamp();
-  const marquee = isMarquee(effects.marquee);
-  const flash = isFlash(effects.flash);
+  const marquee = getMarqueeValue(effects.marquee);
+  const flash = getFlashValue(effects.flash);
 
   return (
     HEADER + flash + marquee + MODES + size + PADDING1 + timestamp + PADDING2 + SEPARATOR + payload
   );
 }
 
-const isMarquee = (isMarrquee: boolean): string => {
+const getMarqueeValue = (isMarrquee: boolean): string => {
   return isMarrquee ? '01' : '00';
 };
 
-const isFlash = (isFlash: boolean): string => {
+const getFlashValue = (isFlash: boolean): string => {
   return isFlash ? '01' : '00';
 };
 

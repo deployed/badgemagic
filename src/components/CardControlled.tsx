@@ -1,18 +1,17 @@
-import {type ImageSourcePropType, Text} from 'react-native';
-import {StyleSheet} from 'react-native';
+import {type ImageSourcePropType, Text, StyleSheet} from 'react-native';
 
 import {type FieldValues, type UseControllerProps, useController} from 'react-hook-form';
 import {useTheme, Card} from 'react-native-paper';
 
 type ControlledCardProps<T extends FieldValues> = {
   imagePath: ImageSourcePropType;
-  placeholder: string;
+  title: string;
 } & UseControllerProps<T>;
 
 export const ControlledCard = <T extends FieldValues>({
   control,
   name,
-  placeholder,
+  title,
   imagePath,
 }: ControlledCardProps<T>): JSX.Element => {
   const {colors} = useTheme();
@@ -31,7 +30,7 @@ export const ControlledCard = <T extends FieldValues>({
       style={[{backgroundColor: value ? colors.primary : colors.onPrimary}, styles.card]}>
       <Card.Cover source={imagePath} style={styles.image} />
       <Card.Content>
-        <Text>{placeholder}</Text>
+        <Text>{title}</Text>
       </Card.Content>
     </Card>
   );
@@ -39,8 +38,8 @@ export const ControlledCard = <T extends FieldValues>({
 
 const styles = StyleSheet.create({
   card: {
-    width: 110,
-    height: 110,
+    flex: 1,
+    margin: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 2,
     margin: 5,
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
   },
 });

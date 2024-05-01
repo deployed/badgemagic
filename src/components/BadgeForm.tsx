@@ -5,9 +5,10 @@ import {useFormContext} from 'react-hook-form';
 import {SceneMap, TabView} from 'react-native-tab-view';
 
 import {AppInput} from '@/components/AppInput';
+import {tabRoutes} from '@/utils/tabRoutes';
 
 import {type BadgeConfigFormData} from '../models/BadgeForm.model';
-import {renderTabBar} from './AppTabBar';
+import {BadgeConfigTabBar} from './BadgeConfigTabBar';
 import {Effects} from './Effects';
 
 const Animations = (): JSX.Element => <Text>Nothing implemented 00</Text>;
@@ -22,11 +23,7 @@ const renderScene = SceneMap({
 
 export const BadgeForm = (): JSX.Element => {
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    {key: 'effects', title: 'Effects'},
-    {key: 'animations', title: 'Animations'},
-    {key: 'speed', title: 'Speed'},
-  ]);
+  const [routes] = useState(tabRoutes);
 
   const {control} = useFormContext<BadgeConfigFormData>();
   const layout = useWindowDimensions();
@@ -35,7 +32,7 @@ export const BadgeForm = (): JSX.Element => {
     <View style={styles.inputContainer}>
       <AppInput control={control} placeholder={'Enter text'} name={'text'} />
       <TabView
-        renderTabBar={renderTabBar}
+        renderTabBar={BadgeConfigTabBar}
         navigationState={{index, routes}}
         renderScene={renderScene}
         onIndexChange={setIndex}

@@ -12,7 +12,6 @@ export type AppInputProps<T extends FieldValues> = {
 export const AppInput = <T extends FieldValues>({
   control,
   name,
-  placeholder,
   ...props
 }: AppInputProps<T>): JSX.Element => {
   const {colors} = useTheme();
@@ -24,7 +23,6 @@ export const AppInput = <T extends FieldValues>({
   return (
     <TextInput
       {...props}
-      placeholder={placeholder}
       mode="outlined"
       outlineColor="transparent"
       style={[{backgroundColor: colors.onPrimary}, styles.input, props.style]}
