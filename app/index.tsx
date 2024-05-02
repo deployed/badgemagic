@@ -21,6 +21,7 @@ const DefaultBagdeConfigFormData: BadgeConfigFormData = {
     marquee: false,
     invertLed: false,
   },
+  speed: 0,
   animation: Animations.RIGHT,
 };
 

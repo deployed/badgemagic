@@ -8,4 +8,5 @@ export interface BadgeConfigFormData {
     invertLed: boolean;
   };
   animation: Animations;
+  speed: number;
 }
