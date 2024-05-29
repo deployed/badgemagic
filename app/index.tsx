@@ -33,7 +33,6 @@ const Home = (): JSX.Element => {
     if (!connectedBadge) {
       return;
     }
-    console.log(data);
     const packets = getPackets(data);
 
     try {

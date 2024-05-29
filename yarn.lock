@@ -5230,14 +5230,14 @@ __metadata:
 
 "dpld-ble@file:./libs/dpld-ble-0.1.1.tgz::locator=badgemagic%40workspace%3A.":
   version: 0.1.1
-  resolution: "dpld-ble@file:./libs/dpld-ble-0.1.1.tgz#./libs/dpld-ble-0.1.1.tgz::hash=db2145&locator=badgemagic%40workspace%3A."
+  resolution: "dpld-ble@file:./libs/dpld-ble-0.1.1.tgz#./libs/dpld-ble-0.1.1.tgz::hash=8e0592&locator=badgemagic%40workspace%3A."
   dependencies:
     "@expo/config-plugins": "npm:^7.8.4"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 481baec0b12585f2f71b2f25dbe386f05307c4d6fc030507d5475974562b3e2b3def7295660da0be3153a07826cb96346063094b3c1bc33c3674020e4f1ee276
+  checksum: da1e6f8b30ae571964daadb463953945f3a26a20c866c55b575db4b9346c181240fca9a43c89566c12a5eaa8b8dde5648831f4e39201c090f1dff7a8a72a0977
   languageName: node
   linkType: hard
 

@@ -13,7 +13,7 @@ interface BadgeScanningProps {
   setScanning: (scanning: boolean) => void;
   scanning: boolean;
   connectedBadge: BadgeMagic | undefined;
-  setConnectedBadge: (connectedBadge: BadgeMagic) => void;
+  setConnectedBadge: (connectedBadge: BadgeMagic | undefined) => void;
 }
 
 export const BadgeScanning = ({
@@ -26,6 +26,7 @@ export const BadgeScanning = ({
 
   const scanForBadges = useCallback(() => {
     setDiscoveredBadges({});
+    setConnectedBadge(undefined);
     Ble.startScan();
     setScanning(true);
     setTimeout(() => {
